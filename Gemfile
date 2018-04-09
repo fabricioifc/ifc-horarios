@@ -23,7 +23,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap-sass'
 gem 'high_voltage'
 gem 'jquery-rails'
 gem 'pg', '~> 0.18'
@@ -41,3 +41,13 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-fullcalendar'
+  gem 'rails-assets-momentjs'
+end
+
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+gem 'ice_cube'
+gem 'simple_form'

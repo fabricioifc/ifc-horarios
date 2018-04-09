@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :students do
-    post :get_barcode, on: :collection
-  end
+  resources :events
   root to: 'visitors#index'
 end
