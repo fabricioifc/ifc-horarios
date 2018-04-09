@@ -17,4 +17,6 @@
 //= require momentjs
 //= require fullcalendar
 //= require daterangepicker
+//= require fullcalendar/gcal
+//= require fullcalendar/lang/pt-br
 //= require_tree .

@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.where(start_date: params[:start_date]..params[:end_date])
+    @events = Event.where(start_date: params[:start]..params[:end])
   end
 
   # GET /events/1

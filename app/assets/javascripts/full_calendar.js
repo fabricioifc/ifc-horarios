@@ -3,6 +3,10 @@ initialize_calendar = function() {
   $('.calendar').each(function(){
     var calendar = $(this);
     calendar.fullCalendar({
+      minTime: "07:45:00",
+      maxTime: "17:00:00",
+      allDaySlot: false,
+      locale: 'pt-br',
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -29,8 +33,8 @@ initialize_calendar = function() {
         event_data = {
           event: {
             id: event.id,
-            start: event.start_date.format(),
-            end: event.end_date.format()
+            start: event.start.format(),
+            end: event.end.format()
           }
         };
         $.ajax({
@@ -42,10 +46,10 @@ initialize_calendar = function() {
 
       eventClick: function(event, jsEvent, view) {
         $.getScript(event.edit_url, function() {
-          $('#event_date_range').val(moment(event.start_date).format("DD/MM/YYYY HH:mm") + ' - ' + moment(event.end_date).format("DD/MM/YYYY HH:mm"))
+          $('#event_date_range').val(moment(event.start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(event.end).format("MM/DD/YYYY HH:mm"))
           date_range_picker();
-          $('.start_hidden').val(moment(event.start_date).format('YYYY-MM-DD HH:mm'));
-          $('.end_hidden').val(moment(event.end_date).format('YYYY-MM-DD HH:mm'));
+          $('.start_hidden').val(moment(event.start).format('YYYY-MM-DD HH:mm'));
+          $('.end_hidden').val(moment(event.end).format('YYYY-MM-DD HH:mm'));
         });
       }
     });
