@@ -6,7 +6,7 @@ else
 end
 
 json.array! events do |event|
-  json.id "recurring_#{recurring_event.id}"
+  json.id "recurring_event_#{recurring_event.id}"
   json.title recurring_event.title
   # json.start event.strftime('%Y-%m-%d')
   # json.end (event + 1.day).strftime('%Y-%m-%d')

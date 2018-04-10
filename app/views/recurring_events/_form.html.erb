@@ -1,6 +1,10 @@
 <%= simple_form_for @recurring_event, remote: true do |f| %>
   <div class="form-inputs">
     <%= f.input :title %>
+    <%= simple_fields_for :outros do |n| %>
+      <%= n.input :turma_id, collection: Turma.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Turma', input_html: { class: "form-control input-sm" } %>
+      <%= n.input :discipline_id, collection: Discipline.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Disciplina', input_html: { class: "form-control input-sm" } %>
+     <% end %>
     <%= f.input :anchor, input_html: { class: "form-control input-sm" } %>
     <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %>
     <%= f.input_field :start_date, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>

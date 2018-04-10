@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409191452) do
+ActiveRecord::Schema.define(version: 20180410172333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "disciplines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "title"
@@ -23,7 +29,11 @@ ActiveRecord::Schema.define(version: 20180409191452) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "recurring_event_id"
+    t.bigint "turma_id"
+    t.bigint "discipline_id"
+    t.index ["discipline_id"], name: "index_events_on_discipline_id"
     t.index ["recurring_event_id"], name: "index_events_on_recurring_event_id"
+    t.index ["turma_id"], name: "index_events_on_turma_id"
   end
 
   create_table "recurring_events", force: :cascade do |t|
@@ -37,5 +47,13 @@ ActiveRecord::Schema.define(version: 20180409191452) do
     t.datetime "end_date"
   end
 
+  create_table "turmas", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "events", "disciplines"
   add_foreign_key "events", "recurring_events"
+  add_foreign_key "events", "turmas"
 end

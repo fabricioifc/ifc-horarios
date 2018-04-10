@@ -16,12 +16,15 @@ class RecurringEventsController < ApplicationController
   end
 
   def create
+    # binding.pry
     @recurring_event = RecurringEvent.new(recurring_event_params)
     if @recurring_event.save
 
       @recurring_event.schedule_recurring_events.each do |event|
-        Event.create(title: @recurring_event.title,
+        @recurring_event.events << Event.new(title: @recurring_event.title,
           color: @recurring_event.color, recurring_event: @recurring_event,
+          turma_id: params[:outros][:turma_id],
+          discipline_id: params[:outros][:discipline_id],
           start_date: formatar_data_evento(event, @recurring_event.start_date),
           end_date: formatar_data_evento(event, @recurring_event.end_date)
         )
@@ -48,7 +51,7 @@ class RecurringEventsController < ApplicationController
   end
 
   def recurring_event_params
-    params.require(:recurring_event).permit(:title, :anchor, :frequency, :color, :start_date, :end_date)
+    params.require(:recurring_event).permit(:title, :anchor, :frequency, :color, :start_date, :end_date, :date_range)
   end
 
   def formatar_data_evento event, data_hora
