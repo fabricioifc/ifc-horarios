@@ -3,10 +3,12 @@ initialize_calendar = function() {
   $('.calendar').each(function(){
     var calendar = $(this);
     calendar.fullCalendar({
-      minTime: "07:45:00",
-      maxTime: "17:00:00",
+      minTime: "07:45",
+      maxTime: "17:00",
       allDaySlot: false,
       locale: 'pt-br',
+      slotDuration: '00:45:00',
+      snapDuration: '00:45:00',
 
       header: {
         left: 'prev,next today',
@@ -18,12 +20,11 @@ initialize_calendar = function() {
       editable: true,
       eventLimit: true,
       eventSources: [
-        '/events.json',
-        '/recurring_events.json'
+        '/events.json'/*,'/recurring_events.json'*/
       ],
       select: function(start, end) {
-        $.getScript('/events/new', function() {
-          $('#event_date_range').val(moment(start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(end).format("MM/DD/YYYY HH:mm"))
+        $.getScript('/recurring_events/new', function() {
+          $('#recurring_event_date_range').val(moment(start).format("DD/MM/YYYY HH:mm") + ' - ' + moment(end).format("DD/MM/YYYY HH:mm"))
           date_range_picker();
           $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
           $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
@@ -36,8 +37,8 @@ initialize_calendar = function() {
         event_data = {
           event: {
             id: event.id,
-            start: event.start_date.format(),
-            end: event.end_date.format()
+            start: event.start.format(),
+            end: event.end.format()
           }
         };
         $.ajax({
@@ -49,7 +50,7 @@ initialize_calendar = function() {
 
       eventClick: function(event, jsEvent, view) {
         $.getScript(event.edit_url, function() {
-          $('#event_date_range').val(moment(event.start_date).format("MM/DD/YYYY HH:mm") + ' - ' + moment(event.end_date).format("MM/DD/YYYY HH:mm"))
+          $('#recurring_event_date_range').val(moment(event.start_date).format("MM/DD/YYYY HH:mm") + ' - ' + moment(event.end_date).format("MM/DD/YYYY HH:mm"))
           date_range_picker();
           $('.start_hidden').val(moment(event.start_date).format('YYYY-MM-DD HH:mm'));
           $('.end_hidden').val(moment(event.end_date).format('YYYY-MM-DD HH:mm'));

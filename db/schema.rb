@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409144921) do
+ActiveRecord::Schema.define(version: 20180409191452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20180409144921) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "recurring_event_id"
+    t.index ["recurring_event_id"], name: "index_events_on_recurring_event_id"
   end
 
   create_table "recurring_events", force: :cascade do |t|
@@ -31,6 +33,9 @@ ActiveRecord::Schema.define(version: 20180409144921) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start_date"
+    t.datetime "end_date"
   end
 
+  add_foreign_key "events", "recurring_events"
 end

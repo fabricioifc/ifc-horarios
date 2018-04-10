@@ -19,5 +19,11 @@
                 class: 'btn btn-danger',
                 data: { confirm: 'Are you sure?' },
                 remote: true unless @event.new_record? %>
+    <%= link_to "Remover (#{event.recurring_event.events.count}) eventos vinculados.",
+                event.recurring_event,
+                method: :delete,
+                class: 'btn btn-danger',
+                data: { confirm: 'Are you sure?' },
+                remote: true unless @event.new_record? %>
   </div>
 <% end %>

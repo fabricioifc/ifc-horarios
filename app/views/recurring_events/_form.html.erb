@@ -2,6 +2,9 @@
   <div class="form-inputs">
     <%= f.input :title %>
     <%= f.input :anchor, input_html: { class: "form-control input-sm" } %>
+    <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %>
+    <%= f.input_field :start_date, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
+    <%= f.input_field :end_date, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
     <%= f.input :frequency, as: :select, collection: RecurringEvent.frequencies.keys, input_html: { class: "form-control input-sm" } %>
     <%= f.input :color, as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']] %>
   </div>
@@ -12,8 +15,14 @@
                 new_event_path,
                 class: 'btn btn-default',
                 remote: true if @recurring_event.new_record? %>
-    <%= link_to 'Delete',
+    <%= link_to "Remover (#{@recurring_event.events.count}) eventos.",
                 @recurring_event,
+                method: :delete,
+                class: 'btn btn-danger',
+                data: { confirm: 'Are you sure?' },
+                remote: true unless @recurring_event.new_record? %>
+    <%= link_to "Remover este evento apenas.",
+                @recurring_event.events.last,
                 method: :delete,
                 class: 'btn btn-danger',
                 data: { confirm: 'Are you sure?' },

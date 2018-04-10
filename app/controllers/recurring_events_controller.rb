@@ -17,7 +17,16 @@ class RecurringEventsController < ApplicationController
 
   def create
     @recurring_event = RecurringEvent.new(recurring_event_params)
-    @recurring_event.save
+    if @recurring_event.save
+
+      @recurring_event.schedule_recurring_events.each do |event|
+        Event.create(title: @recurring_event.title,
+          color: @recurring_event.color, recurring_event: @recurring_event,
+          start_date: formatar_data_evento(event, @recurring_event.start_date),
+          end_date: formatar_data_evento(event, @recurring_event.end_date)
+        )
+      end
+    end
   end
 
   def update
@@ -39,6 +48,12 @@ class RecurringEventsController < ApplicationController
   end
 
   def recurring_event_params
-    params.require(:recurring_event).permit(:title, :anchor, :frequency, :color)
+    params.require(:recurring_event).permit(:title, :anchor, :frequency, :color, :start_date, :end_date)
+  end
+
+  def formatar_data_evento event, data_hora
+    datetojoin = Time.parse(event.to_s).strftime("%Y-%m-%d")
+    timetojoin = Time.parse(data_hora.to_s).strftime("%T")
+    joined_datetime = Time.parse(datetojoin +" "+ timetojoin).strftime("%F %T")
   end
 end

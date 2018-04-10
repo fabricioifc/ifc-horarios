@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  belongs_to :recurring_event
+
   validates :title, presence: true
   attr_accessor :date_range
 
