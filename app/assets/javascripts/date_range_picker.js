@@ -19,23 +19,3 @@ date_range_picker = function() {
   })
 };
 $(document).on('turbolinks:load', date_range_picker);
-
-var time_range_picker;
-time_range_picker = function() {
-  $('.time-range-picker').each(function(){
-    $(this).daterangepicker({
-        locale: {
-          format: 'HH:mm'
-        },
-        timePicker: true,
-        timePickerIncrement: 15,
-        alwaysShowCalendars: true,
-        timePicker24Hour: true
-    }, function(start, end, label) {
-      console.log(start);
-      $('.start_hidden').val(moment(start).format('HH:mm'));
-      $('.end_hidden').val(moment(end).format('HH:mm'));
-    });
-  })
-};
-$(document).on('turbolinks:load', time_range_picker);
