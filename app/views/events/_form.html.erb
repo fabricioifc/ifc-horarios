@@ -4,9 +4,22 @@
 
   <div class="form-inputs">
     <%= f.input :title %>
-    <%= f.input :date_range, input_html: { class: "form-control input-sm date-range-picker" } %>
-    <%= f.input_field :start_date, as: :hidden, value: Date.today, class: 'form-control input-sm start_hidden' %>
-    <%= f.input_field :end_date, as: :hidden, value: Date.today, class: 'form-control input-sm end_hidden' %>
+    <%= f.input :turma_id, collection: Turma.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Turma', input_html: { class: "form-control input-sm" } %>
+    <%= f.input :discipline_id, collection: Discipline.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Disciplina', input_html: { class: "form-control input-sm" } %>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-6">
+            <%= f.label :start_date, class: 'control-label' %>
+            <%= f.text_field :start_date, value: (@event.start_date.strftime('%d/%m/%Y %H:%M') unless @event.start_date.nil?), class: 'form-control input-sm date-time-picker-start' %>
+        </div>
+        <div class="col-md-6">
+            <%= f.label :end_date, class: 'control-label' %>
+            <%= f.text_field :end_date, value: (@event.end_date.strftime('%d/%m/%Y %H:%M') unless @event.end_date.nil?), class: 'form-control input-sm date-time-picker-end' %>
+        </div>
+      </div>
+    </div>
+
     <%= f.input :color, as: :select, collection: [['Black','black'], ['Green','green'], ['Red','red']] %>
   </div>
 

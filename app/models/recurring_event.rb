@@ -2,7 +2,7 @@ class RecurringEvent < ApplicationRecord
   enum frequency: { semanalmente: 0, mensalmente: 1, anualmente: 2 }
   has_many :events, dependent: :destroy
 
-  validates :anchor, presence: true
+  validates :anchor, presence: false
   validates :frequency, presence: true
   validates :title, presence: true
   attr_accessor :date_range

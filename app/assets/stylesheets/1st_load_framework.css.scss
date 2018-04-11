@@ -1,6 +1,5 @@
 // import the CSS framework
 @import "bootstrap-sprockets";
-@import 'bootstrap-datetimepicker';
 
 $bootstrap-sass-asset-helper: false !default;
 //
@@ -949,4 +948,11 @@ section {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-xs;
+}
+
+
+.alert, .well {
+  margin-bottom: 4px;
+  padding: 5px;
+  border-radius: 0px;
 }

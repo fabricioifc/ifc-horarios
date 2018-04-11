@@ -14,12 +14,13 @@ class RecurringEventsController < ApplicationController
 
   # GET /recurring_events/new
   def new
-    @recurring_event = RecurringEvent.new
+    @recurring_event = RecurringEvent.new(start_date: params[:data], end_date: params[:data])
   end
 
   # GET /recurring_events/1/edit
   def edit
-    @recurring_event.date_range = "#{@recurring_event.events.first.start_date} #{@recurring_event.events.first.end_date}"
+    # @recurring_event.date_range = "#{@recurring_event.events.first.start_date} #{@recurring_event.events.first.end_date}"
+    # @recurring_event.start_date = @recurring_event.start_date.strftime('%d/%m/%YT%H:%M')
   end
 
   # POST /recurring_events

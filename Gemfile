@@ -50,9 +50,12 @@ end
 
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'ice_cube'
 gem 'simple_form'
 
 # gem 'carender'
 gem "simple_calendar", "~> 2.0"
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-datetimepicker'
+end
