@@ -1,6 +1,14 @@
-<h1>Editing Event</h1>
+<div class="col-md-10 col-md-push-1">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Alterando Aula</h3>
+    </div>
+    <div class="panel-body">
+      <%= render 'form', event: @event %>
+    </div>
+    <div class="panel-footer">
+      <%= link_to 'Voltar', events_path %>
+    </div>
+  </div>
 
-<%= render 'form', event: @event %>
-
-<%= link_to 'Show', @event %> |
-<%= link_to 'Back', events_path %>
+</div>

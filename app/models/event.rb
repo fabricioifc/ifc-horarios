@@ -5,8 +5,9 @@ class Event < ApplicationRecord
 
   scope :future, -> { where('start_date > ?', DateTime.now) }
 
-  validates :title, presence: true
+  validates :title, presence: false
   attr_accessor :date_range
+  validates :start_date, :end_date, presence:true
 
   def all_day_event?
     self.start_date == self.start_date.midnight && self.end_date == self.end_date.midnight ? true : false

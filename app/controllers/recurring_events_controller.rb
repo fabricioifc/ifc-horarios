@@ -4,12 +4,13 @@ class RecurringEventsController < ApplicationController
   # GET /recurring_events
   # GET /recurring_events.json
   def index
-    @recurring_events = RecurringEvent.all
+    @recurring_events = RecurringEvent.order(:start_date)
   end
 
   # GET /recurring_events/1
   # GET /recurring_events/1.json
   def show
+    # @recurring_event = RecurringEvent.ordenado(params[:id])
   end
 
   # GET /recurring_events/new

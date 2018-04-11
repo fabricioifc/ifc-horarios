@@ -2,10 +2,13 @@ class RecurringEvent < ApplicationRecord
   enum frequency: { semanalmente: 0, mensalmente: 1, anualmente: 2 }
   has_many :events, dependent: :destroy
 
+  # scope :ordenado, -> (id) { joins(:events).order('events.start_date DESC').find(id) }
+
   validates :anchor, presence: false
   validates :frequency, presence: true
-  validates :title, presence: true
+  validates :title, presence: false
   attr_accessor :date_range
+  validates :start_date, :end_date, presence:true
 
   TIME_12H_FORMAT = /\A(1[0-2]|0?[1-9]):[0-5][0-9]\s?(am|pm)\z/i
 

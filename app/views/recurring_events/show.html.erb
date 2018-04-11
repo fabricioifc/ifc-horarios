@@ -1,25 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix" style="background-color: <%= @recurring_event.color %>">
+    <span class="alert badge pull-right"><%= @recurring_event.frequency %></span>
+  </div>
+  <div class="panel-body">
 
-<p>
-  <strong>Title:</strong>
-  <%= @recurring_event.title %>
-</p>
-
-<p>
-  <strong>Anchor:</strong>
-  <%= @recurring_event.anchor %>
-</p>
-
-<p>
-  <strong>Frequency:</strong>
-  <%= @recurring_event.frequency %>
-</p>
-
-<p>
-  <strong>Color:</strong>
-  <%= @recurring_event.color %>
-</p>
-
-<%= link_to 'Edit', edit_recurring_event_path(@recurring_event) %> |
-<%= link_to 'Excluir', recurring_event_path(@recurring_event), method: :delete %> |
-<%= link_to 'Back', recurring_events_path %>
+    <table class='table table-striped table-bordered table-condensed'>
+      <thead>
+        <tr>
+          <th>Data Inicial</th>
+          <th>Data Final</th>
+          <th>Turma</th>
+          <th>Disciplina</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recurring_event.events.order(:start_date).each do |event| %>
+          <tr>
+            <!-- <td><= event.title %></td> -->
+            <td><%= event.start_date.strftime('%d/%m/%Y %H:%M') %></td>
+            <td><%= event.end_date.strftime('%d/%m/%Y %H:%M') %></td>
+            <td><%= event.turma.name unless event.turma.nil? %></td>
+            <td><%= event.discipline.name unless event.discipline.nil? %></td>
+            <td><%= link_to 'Detalhes', event, class: 'btn btn-xs btn-block btn-info' %></td>
+            <td><%= link_to 'Alterar', edit_event_path(event), class: 'btn btn-xs btn-block btn-warning' %></td>
+            <td><%= link_to 'Excluir', event, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-xs btn-block btn-danger' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer">
+    <%= link_to 'Voltar', :back, class: 'btn btn-sm btn-default' %>
+    <%= link_to 'Alterar', edit_recurring_event_path(@recurring_event), class: 'btn btn-sm btn-warning' %>
+    <%= link_to "Excluir todos os #{@recurring_event.events.count} eventos relacionados", recurring_event_path(@recurring_event), method: :delete, class: 'btn btn-sm btn-danger' %>
+  </div>
+</div>

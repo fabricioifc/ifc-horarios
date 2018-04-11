@@ -1,21 +1,25 @@
 <!-- <div class='calendar'></div> -->
 <%= month_calendar events: @events do |date, events| %>
-  <p><%= date.strftime('%d/%m/%Y') %></p>
+  <p class="btn-block badge alert"><%= date.strftime('%d/%m/%Y') %></p>
 
   <% events.each do |event| %>
-    <div class="well well-sm">
-      <span class="btn btn-block btn-xs btn-primary"><%= "#{event.start_date.strftime('%H:%M')} - #{event.end_date.strftime('%H:%M')}" %></span> <br>
+    <ul class="list-group">
       <%= link_to event, title: event.title, style: "color: #{event.color}" do %>
-        <small class="btn btn-block btn-xs">
-          <% if !event.turma.nil? %>
-            <span><%= "#{event.turma.name}" %></span>
-            <% if !event.discipline.nil? %>
-              <%= " - #{event.discipline.name}" %>
+        <li class="list-group-item list-group-item-active text-center">
+          <small><%= "#{event.start_date.strftime('%H:%M')} - #{event.end_date.strftime('%H:%M')}" %></small>
+          <small class="btn-block">
+            <% if !event.turma.nil? %>
+              <span><%= "#{event.turma.name}" %></span>
+              <% if !event.discipline.nil? %>
+                <%= " - #{event.discipline.name}" %>
+              <% end %>
             <% end %>
-          <% end %>
-          <% end %>
-        </small>
-      <%= link_to "Eventos Relacionados", event.recurring_event, class: 'btn btn-block btn-xs btn-warning' unless event.recurring_event.nil? %>
-    </div>
+          </small>
+          <!-- <= link_to "Aulas Relacionadas", event.recurring_event, class: 'btn btn-xs btn-warning' unless event.recurring_event.nil? %> -->
+        </li>
+      <% end %>
+    </ul>
+
+
   <% end %>
 <% end %>

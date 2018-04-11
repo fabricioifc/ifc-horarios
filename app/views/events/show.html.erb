@@ -1,24 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-6 col-md-push-3">
+  <div class="panel panel-default" style="border-color: <%= @event.color %>">
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+        <dt>Data Inicial</dt>
+        <dd><%= @event.start_date.strftime('%d/%m/%Y %H:%M') %></dd>
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
+        <dt>Data Final</dt>
+        <dd><%= @event.end_date.strftime('%d/%m/%Y %H:%M') %></dd>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @event.start_date %>
-</p>
+        <dt>Turma</dt>
+        <dd><%= @event.turma.name unless @event.turma.nil? %></dd>
 
-<p>
-  <strong>End date:</strong>
-  <%= @event.end_date %>
-</p>
+        <dt>Disciplina</dt>
+        <dd><%= @event.discipline.name unless @event.discipline.nil? %></dd>
 
-<p>
-  <strong>Color:</strong>
-  <%= @event.color %>
-</p>
+        <dt>Ações</dt>
+        <dd>
+          <%= link_to 'Alterar', edit_event_path(@event), class: 'btn btn-xs btn-warning' %>
+          <%= link_to 'Excluir', @event, method: :delete, data: { confirm: 'Tem certeza que quer excluir esta aula?' }, class: 'btn btn-xs btn-danger' %>
+        </dd>
+      </dl>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+    </div>
+    <div class="panel-footer">
+      <%= link_to 'Voltar', events_path, class: 'btn btn-sm btn-default' %>
+      <%= link_to "Aulas Relacionadas", @event.recurring_event, class: 'btn btn-sm btn-warning' unless @event.recurring_event.nil? %>
+    </div>
+  </div>
+
+</div>

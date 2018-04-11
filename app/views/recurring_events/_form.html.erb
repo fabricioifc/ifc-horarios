@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :title, autofocus:true %>
+    <!-- <= f.input :title, autofocus:true %> -->
     <%= simple_fields_for :outros do |n| %>
       <%= n.input :turma_id, collection: Turma.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Turma', input_html: { class: "form-control input-sm" } %>
       <%= n.input :discipline_id, collection: Discipline.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Disciplina', input_html: { class: "form-control input-sm" } %>
