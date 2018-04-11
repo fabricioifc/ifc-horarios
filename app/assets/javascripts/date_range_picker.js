@@ -19,3 +19,16 @@ date_range_picker = function() {
   })
 };
 $(document).on('turbolinks:load', date_range_picker);
+
+var datetimepicker;
+datetimepicker = function() {
+  $('.date-time-picker').each(function(){
+    console.log(this);
+    $(this).datetimepicker({
+      inline: true,
+      sideBySide: true
+    });
+  });
+};
+
+$(document).on('turbolinks:load', datetimepicker);

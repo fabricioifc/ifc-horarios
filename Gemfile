@@ -50,6 +50,7 @@ end
 
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'ice_cube'
 gem 'simple_form'
 
