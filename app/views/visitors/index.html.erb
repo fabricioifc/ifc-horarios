@@ -1,1 +1,13 @@
-<div class='calendar'></div>
+<!-- <div class='calendar'></div> -->
+<%= month_calendar events: @recurring_events do |date, recurring_events| %>
+  <p><%= date.strftime('%d/%m/%Y') %></p>
+
+  <% recurring_events.each do |recurring_event| %>
+    <% recurring_event.events.each do |event| %>
+      <p class="well-sm alert-success">
+        <span><%= "#{event.start_date.strftime('%H:%M')} - #{event.end_date.strftime('%H:%M')}" %></span>
+        <span><%= link_to event.title, event %></span>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>

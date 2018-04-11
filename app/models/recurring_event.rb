@@ -45,4 +45,9 @@ class RecurringEvent < ApplicationRecord
     schedule.occurrences_between(start_date.to_date, end_date.to_date)
   end
 
+  def start_time
+    date_format = self.all_day_event? ? '%d-%m-%Y' : '%d-%m-%YT%H:%M:%S'
+    self.start_date.strftime(date_format)
+  end
+
 end

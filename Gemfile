@@ -52,3 +52,6 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'ice_cube'
 gem 'simple_form'
+
+# gem 'carender'
+gem "simple_calendar", "~> 2.0"

@@ -1,8 +1,8 @@
 class Event < ApplicationRecord
-  belongs_to :recurring_event
+  belongs_to :recurring_event, optional:true
   belongs_to :turma
   belongs_to :discipline
-  
+
   scope :future, -> { where('start_date > ?', DateTime.now) }
 
   validates :title, presence: true
