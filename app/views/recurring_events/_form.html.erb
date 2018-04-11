@@ -4,8 +4,8 @@
   <div class="form-inputs">
     <!-- <= f.input :title, autofocus:true %> -->
     <%= simple_fields_for :outros do |n| %>
-      <%= n.input :turma_id, collection: Turma.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Turma', input_html: { class: "form-control input-sm" } %>
-      <%= n.input :discipline_id, collection: Discipline.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Disciplina', input_html: { class: "form-control input-sm" } %>
+      <%= n.input :turma_id, collection: Turma.order(:name), label_method: :name, value_method: :id, selected: (@recurring_event.events.first.turma_id unless @recurring_event.events.empty?), :prompt => 'Escolha a Turma', autofocus:true, input_html: { class: "form-control input-sm" } %>
+      <%= n.input :discipline_id, collection: Discipline.order(:name), label_method: :name, value_method: :id, selected: (@recurring_event.events.first.discipline_id unless @recurring_event.events.empty?), :prompt => 'Escolha a Disciplina', input_html: { class: "form-control input-sm" } %>
      <% end %>
     <!-- <= f.input :anchor, input_html: { class: "form-control input-sm" } %> -->
     <div class="row">
@@ -22,6 +22,16 @@
     </div>
     <%= f.input :frequency, as: :select, collection: RecurringEvent.frequencies.keys, input_html: { class: "form-control input-sm" } %>
     <%= f.input :color, as: :select, collection: [['Black','#000000'], ['Green',' #009933'], ['Red','#990000']] %>
+
+    <% unless @recurring_event.new_record? %>
+      <%= simple_fields_for :outros do |n| %>
+        <div class="well well-sm">
+          <!-- <= f.input :atualizar_todos, as: :boolean, checked_value: true, unchecked_value: false unless @event.recurring_event.nil? %> -->
+          <%= n.input :atualizar_proximos, as: :boolean, checked_value: true, unchecked_value: false %>
+          <small class="help-block">Esta opção deve ser utilizada para alterar todas as aulas a partir da Data Inicial selecionada.</small>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="form-actions">

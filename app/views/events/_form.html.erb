@@ -5,7 +5,7 @@
     <!-- <= f.input :title %> -->
     <div class="row">
       <div class="col-md-5 form-group">
-        <%= f.input :turma_id, collection: Turma.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Turma', input_html: { class: "form-control input-sm" } %>
+        <%= f.input :turma_id, collection: Turma.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Turma', autofocus:true, input_html: { class: "form-control input-sm" } %>
       </div>
       <div class="col-md-5 form-group">
         <%= f.input :discipline_id, collection: Discipline.order(:name), label_method: :name, value_method: :id, :prompt => 'Escolha a Disciplina', input_html: { class: "form-control input-sm" } %>
@@ -26,11 +26,14 @@
       </div>
     </div>
 
+    <!-- <= f.input :atualizar_todos, as: :boolean, checked_value: true, unchecked_value: false unless @event.recurring_event.nil? %>
+    <= f.input :atualizar_proximos, as: :boolean, checked_value: true, unchecked_value: false unless @event.recurring_event.nil? %> -->
+
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
-    <%= link_to 'Delete',
+    <%= link_to 'Excluir Aula',
                 event,
                 method: :delete,
                 class: 'btn btn-danger',

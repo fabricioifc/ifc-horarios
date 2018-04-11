@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @recurring_event.events.order(:start_date).each do |event| %>
+        <% @events.each do |event| %>
           <tr>
             <!-- <td><= event.title %></td> -->
             <td><%= event.start_date.strftime('%d/%m/%Y %H:%M') %></td>
@@ -29,6 +29,9 @@
         <% end %>
       </tbody>
     </table>
+
+    <%= paginate @events %>
+
   </div>
   <div class="panel-footer">
     <%= link_to 'Voltar', :back, class: 'btn btn-sm btn-default' %>

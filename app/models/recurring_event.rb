@@ -8,6 +8,8 @@ class RecurringEvent < ApplicationRecord
   validates :frequency, presence: true
   validates :title, presence: false
   attr_accessor :date_range
+  attr_accessor :atualizar_todos
+  attr_accessor :atualizar_proximos
   validates :start_date, :end_date, presence:true
 
   TIME_12H_FORMAT = /\A(1[0-2]|0?[1-9]):[0-5][0-9]\s?(am|pm)\z/i
@@ -51,5 +53,15 @@ class RecurringEvent < ApplicationRecord
   def start_time
     self.start_date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
   end
+
+  def self.search(term, page)
+    if term
+      where('events.turma.name LIKE ?', "%#{term}%").page(current_page)
+    else
+      # note: default is all, just sorted
+      order('events.start_date ASC').page(current_page)
+    end
+  end
+
 
 end

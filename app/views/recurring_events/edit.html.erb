@@ -1,6 +1,44 @@
-<h1>Editing Recurring Event</h1>
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Alterando Aulas</h3>
+    </div>
+    <div class="panel-body">
+      <%= render 'form', event: @recurring_event %>
+    </div>
+    <div class="panel-footer">
+      <%= link_to 'Voltar', recurring_events_path %>
+    </div>
+  </div>
+</div>
 
-<%= render 'form', recurring_event: @recurring_event %>
-
-<%= link_to 'Show', @recurring_event %> |
-<%= link_to 'Back', recurring_events_path %>
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Lista de Aulas Vinculadas</h3>
+    </div>
+    <div class="panel-body">
+      <table class='table table-striped table-bordered table-condensed'>
+        <thead>
+          <tr>
+            <th>Data Inicial</th>
+            <th>Data Final</th>
+            <th>Turma</th>
+            <th>Disciplina</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recurring_event.events.each do |event| %>
+            <tr>
+              <!-- <td><= event.title %></td> -->
+              <td><%= event.start_date.strftime('%d/%m/%Y %H:%M') %></td>
+              <td><%= event.end_date.strftime('%d/%m/%Y %H:%M') %></td>
+              <td><%= event.turma.name unless event.turma.nil? %></td>
+              <td><%= event.discipline.name unless event.discipline.nil? %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

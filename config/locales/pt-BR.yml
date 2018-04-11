@@ -4,6 +4,8 @@ pt-BR:
     models:
       turma: Turma
       discipline: Componente Curricular
+      event: Aula
+      recurring_event: Aula Recorrente
     attributes:
       event:
         start_date: Data Inicial

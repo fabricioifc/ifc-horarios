@@ -4,10 +4,14 @@
   </div>
   <div class="panel-body">
     <div class="simple-calendar">
-      <div class="calendar-heading">
-        <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-        <span class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-        <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+      <div class="calendar-heading text-center" style="margin-bottom: 5px;">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <%= link_to t('simple_calendar.previous', default: 'Anterior'), calendar.url_for_previous_view, class: 'btn btn-sm btn-primary' %>
+          <button type="button" class="btn btn-sm btn-default calendar-title">
+            <span class=""><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
+          </button>
+          <%= link_to t('simple_calendar.next', default: 'Próximo'), calendar.url_for_next_view, class: 'btn btn-sm btn-primary' %>
+        </div>
       </div>
 
       <table class="table table-striped">

@@ -23,7 +23,7 @@ $(document).on('turbolinks:load', date_range_picker);
 var datetimepicker;
 datetimepicker = function() {
   allowTimesStart = ['07:45','08:30','09:15','10:15','11:00','13:00','13:45','14:30','15:30','16:15'];
-  allowTimesEnd = ['08:30','09:15','10:00','11:00','13:45','14:30','15:30','16:15','17:00'];
+  allowTimesEnd = ['08:30','09:15','10:00','11:00','11:45','13:45','14:30','15:30','16:15','17:00'];
   options = {
     inline: false,
     format:'d/m/Y H:i',

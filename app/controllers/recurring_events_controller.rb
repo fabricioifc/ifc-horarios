@@ -11,6 +11,7 @@ class RecurringEventsController < ApplicationController
   # GET /recurring_events/1.json
   def show
     # @recurring_event = RecurringEvent.ordenado(params[:id])
+    @events = Event.where(recurring_event: params[:id]).order(:start_date).page params[:page]
   end
 
   # GET /recurring_events/new
@@ -52,13 +53,31 @@ class RecurringEventsController < ApplicationController
   # PATCH/PUT /recurring_events/1
   # PATCH/PUT /recurring_events/1.json
   def update
-    respond_to do |format|
-      if @recurring_event.update(recurring_event_params)
-        format.html { redirect_to @recurring_event, notice: 'Recurring event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @recurring_event }
-      else
-        format.html { render :edit }
-        format.json { render json: @recurring_event.errors, status: :unprocessable_entity }
+    RecurringEvent.transaction do
+
+      respond_to do |format|
+        if params[:outros][:atualizar_proximos]
+          Event.where(recurring_event_id: @recurring_event.id).where('start_date::date >= ?', recurring_event_params[:start_date].to_date).destroy_all
+        else
+          @recurring_event.events.destroy_all
+        end
+
+        if @recurring_event.update(recurring_event_params)
+          @recurring_event.schedule_recurring_events.each do |event|
+            @recurring_event.events << Event.new(title: @recurring_event.title,
+              color: @recurring_event.color, recurring_event: @recurring_event,
+              turma_id: params[:outros][:turma_id],
+              discipline_id: params[:outros][:discipline_id],
+              start_date: formatar_data_evento(event, @recurring_event.start_date),
+              end_date: formatar_data_evento(event, @recurring_event.end_date)
+            )
+          end
+          format.html { redirect_to @recurring_event, notice: 'Recurring event was successfully updated.' }
+          format.json { render :show, status: :ok, location: @recurring_event }
+        else
+          format.html { render :edit }
+          format.json { render json: @recurring_event.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
