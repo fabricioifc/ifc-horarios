@@ -1,0 +1,24 @@
+<%= month_calendar events: @events do |date, events| %>
+  <p class="btn-block badge alert"><%= date.strftime('%d/%m/%Y') %></p>
+
+  <% events.each do |event| %>
+    <ul class="list-group">
+      <%= link_to event, title: event.title, style: "color: #{event.color}" do %>
+        <li class="list-group-item list-group-item-active text-center">
+          <small><%= "#{event.start_date.strftime('%H:%M')} - #{event.end_date.strftime('%H:%M')}" %></small>
+          <small class="btn-block">
+            <% if !event.turma.nil? %>
+              <span><%= "#{event.turma.name}" %></span>
+              <% if !event.discipline.nil? %>
+                <%= " - #{event.discipline.name}" %>
+              <% end %>
+            <% end %>
+          </small>
+          <!-- <= link_to "Aulas Relacionadas", event.recurring_event, class: 'btn btn-xs btn-warning' unless event.recurring_event.nil? %> -->
+        </li>
+      <% end %>
+    </ul>
+
+
+  <% end %>
+<% end %>
