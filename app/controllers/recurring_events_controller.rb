@@ -100,7 +100,7 @@ class RecurringEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recurring_event_params
-      params.require(:recurring_event).permit(:title, :anchor, :frequency, :color, :start_date, :end_date, :date_range)
+      params.require(:recurring_event).permit(:title, :anchor, :frequency, :color, :start_date, :end_date, :extra_date)
     end
 
     def formatar_data_evento event, data_hora

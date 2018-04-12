@@ -1,5 +1,5 @@
 <%= simple_form_for(@recurring_event) do |f| %>
-  <%= f.error_notification %>
+  <%= render "shared/error_messages", :target => @recurring_event %>
 
   <div class="form-inputs">
     <!-- <= f.input :title, autofocus:true %> -->
@@ -10,13 +10,17 @@
     <!-- <= f.input :anchor, input_html: { class: "form-control input-sm" } %> -->
     <div class="row">
       <div class="form-group">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <%= f.label :start_date, class: 'control-label' %>
             <%= f.text_field :start_date, value: (@recurring_event.start_date.strftime('%d/%m/%Y %H:%M') unless @recurring_event.start_date.nil?), class: 'form-control input-sm date-time-picker-start' %>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <%= f.label :end_date, class: 'control-label' %>
             <%= f.text_field :end_date, value: (@recurring_event.end_date.strftime('%d/%m/%Y %H:%M') unless @recurring_event.end_date.nil?), class: 'form-control input-sm date-time-picker-end' %>
+        </div>
+        <div class="col-md-4">
+            <%= f.label :extra_date, class: 'control-label' %>
+            <%= f.text_field :extra_date, value: (@recurring_event.extra_date.strftime('%d/%m/%Y') unless @recurring_event.extra_date.nil?), class: 'form-control input-sm date-picker' %>
         </div>
       </div>
     </div>
@@ -32,6 +36,8 @@
         </div>
       <% end %>
     <% end %>
+
+
   </div>
 
   <div class="form-actions">

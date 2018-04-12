@@ -1,5 +1,5 @@
 class RecurringEvent < ApplicationRecord
-  enum frequency: { semanalmente: 0, mensalmente: 1, anualmente: 2 }
+  enum frequency: { semanalmente: 0, mensalmente: 1 }
   has_many :events, dependent: :destroy
 
   # scope :ordenado, -> (id) { joins(:events).order('events.start_date DESC').find(id) }
@@ -11,6 +11,10 @@ class RecurringEvent < ApplicationRecord
   attr_accessor :atualizar_todos
   attr_accessor :atualizar_proximos
   validates :start_date, :end_date, presence:true
+  validate :extra_date_maior_que_end_date
+  # validate :range_of_times
+  validates :start_date, :end_date, date_range: true
+
 
   TIME_12H_FORMAT = /\A(1[0-2]|0?[1-9]):[0-5][0-9]\s?(am|pm)\z/i
 
@@ -33,8 +37,6 @@ class RecurringEvent < ApplicationRecord
         schedule.add_recurrence_rule IceCube::Rule.weekly(1)
       when 'mensalmente'
         schedule.add_recurrence_rule IceCube::Rule.monthly(1)
-      when 'anualmente'
-        schedule.add_recurrence_rule IceCube::Rule.yearly(1)
       end
       schedule
     end
@@ -54,14 +56,25 @@ class RecurringEvent < ApplicationRecord
     self.start_date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
   end
 
-  def self.search(term, page)
-    if term
-      where('events.turma.name LIKE ?', "%#{term}%").page(current_page)
-    else
-      # note: default is all, just sorted
-      order('events.start_date ASC').page(current_page)
+private
+
+  def extra_date_maior_que_end_date
+    if extra_date.present? && end_date.present? && extra_date <= end_date.to_date
+      errors.add(:extra_date, "Deve ser maior que a data final")
     end
   end
 
+  def range_of_times
+    if start_date.present?
+      allowTimesStart = ['07:45','08:30','09:15','10:15','11:00','13:00','13:45','14:30','15:30','16:15'];
+      allowTimesEnd = ['08:30','09:15','10:00','11:00','11:45','13:45','14:30','15:30','16:15','17:00'];
+
+      time = start_date.strftime('%H:%M')
+
+      if !allowTimesStart.include?(time) || !allowTimesEnd.include?(time)
+        errors.add(:start_date, "#{time} não é um horário válido")
+      end
+    end
+  end
 
 end

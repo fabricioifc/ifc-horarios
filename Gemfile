@@ -61,3 +61,5 @@ source 'https://rails-assets.org' do
 end
 
 gem 'kaminari'
+gem 'devise'
+gem 'validates_timeliness', '~> 4.0'
